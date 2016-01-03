@@ -6,6 +6,7 @@ usage_exit() {
 }
 user=$(id -un)
 group=$(id -gn)
+ansible_opts="-e ansible_unit_test=true -e ansible_unit_test_user=$user -e ansible_unit_test_group=$group"
 
 outputs="outputs"
 
@@ -37,13 +38,12 @@ do
 done
 
 mkdir -p tests/cases tests/${outputs}
-
 for case in $cases
 do
     echo "* Test: $case"
-    ansible-playbook ./tests/test.yml -i ./tests/hosts -t $case-setup -D -e prefix_dir="${outputs}/${case}" -e ansible_unit_test=true -e ansible_unit_test_user=$user -e ansible_unit_test_group=$group >/dev/null
-    ansible-playbook ./tests/test.yml -i ./tests/hosts -t $case -D -e prefix_dir="${outputs}/${case}" -e ansible_unit_test=true -e ansible_unit_test_user=$user -e ansible_unit_test_group=$group
-    result=$?
+    ansible-playbook ./tests/test.yml -i ./tests/hosts -t $case-setup -e prefix_dir="${outputs}/${case}" ${ansible_opts} >/dev/null
+    ansible-playbook ./tests/test.yml -i ./tests/hosts -t $case -e prefix_dir="${outputs}/${case}" ${ansible_opts} || exit 255
+
 
     if diff -uNr tests/cases/${case} tests/${outputs}/${case} >/dev/null 2>&1 ;then
         passes=$(( passes+1 ))
