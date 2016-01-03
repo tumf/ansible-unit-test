@@ -1,0 +1,41 @@
+#!/bin/bash
+mkdir -p tests/cases
+
+if [ ! -f ./tests/run ];then
+    cat > ./tests/run <<EOF
+ansible-role-test-run "\$@"
+EOF
+    chmod +x ./tests/run
+fi
+
+if [ ! -f ./tests/hosts ];then
+    echo "127.0.0.1" > ./tests/hosts
+fi
+
+if [ ! -f ./tests/test.yml ];then
+    cat >./tests/test.yml <<EOF
+---
+- hosts: 127.0.0.1
+  connection: local
+  tags:
+    - mini
+  roles:
+    - role: ../..
+EOF
+fi
+
+
+if [ ! -f ./travis.yml ];then
+    cat >.travis.yml <<EOF
+language: python
+python:
+- '2.7'
+install:
+- pip install ansible
+before_script:
+- ansible --version
+- ansible-playbook --syntax-check ./tests/test.yml -i ./tests/hosts
+script:
+- ./tests/run
+EOF
+fi

@@ -1,0 +1,61 @@
+#!/bin/bash
+
+usage_exit() {
+        echo "Usage: $0 [-w] name" 1>&2
+        exit 1
+}
+outputs="outputs"
+
+while getopts wh option
+do
+    case $option in
+        w)
+            outputs="cases"
+            ;;
+        h)
+            usage_exit
+            ;;
+    esac
+done
+
+shift $((OPTIND - 1))
+
+cases=$(ls tests/cases)
+if [ ! -z $1 ];then
+    cases=$1
+fi
+
+errors=0
+passes=0
+
+for case in $cases
+do
+    rm -rf tests/${outputs}/${case}
+done
+
+mkdir -p tests/cases tests/${outputs}
+
+for case in $cases
+do
+    echo "* Test: $case"
+    ansible-playbook ./tests/test.yml -i ./tests/hosts -t $case-setup -D -e prefix_dir="${outputs}/${case}" -e ansible_unit_test=true >/dev/null
+    ansible-playbook ./tests/test.yml -i ./tests/hosts -t $case -D -e prefix_dir="${outputs}/${case}" -e ansible_unit_test=true
+    result=$?
+
+    if diff -uNr tests/cases/${case} tests/${outputs}/${case} >/dev/null 2>&1 ;then
+        passes=$(( passes+1 ))
+        echo "TestCase: $case OK"
+    else
+        diff -uNr tests/cases/${case} tests/${outputs}/${case}
+        errors=$(( errors+1 ))
+        echo "TestCase: $case ERROR"
+    fi
+done
+
+if [ $errors -eq 0 ]
+then
+    echo "${passes} test case(s) passed"
+else
+    echo "${errors} error(s)"
+fi
+exit $errors
