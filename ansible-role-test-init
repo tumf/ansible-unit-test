@@ -37,3 +37,13 @@ script:
 - ./tests/run
 EOF
 fi
+
+cat <<EOF
+oTODO:
+#1 Add entry to 'defaults/main.yml'
+
+prefix_dir:
+ansible_unit_test: false
+
+#2 Add 'tests/outputs' to .gitignore
+EOF
