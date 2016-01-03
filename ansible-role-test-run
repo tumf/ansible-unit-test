@@ -4,6 +4,9 @@ usage_exit() {
         echo "Usage: $0 [-w] name" 1>&2
         exit 1
 }
+user=$(id -un)
+group=$(id -gn)
+
 outputs="outputs"
 
 while getopts wh option
@@ -38,8 +41,8 @@ mkdir -p tests/cases tests/${outputs}
 for case in $cases
 do
     echo "* Test: $case"
-    ansible-playbook ./tests/test.yml -i ./tests/hosts -t $case-setup -D -e prefix_dir="${outputs}/${case}" -e ansible_unit_test=true >/dev/null
-    ansible-playbook ./tests/test.yml -i ./tests/hosts -t $case -D -e prefix_dir="${outputs}/${case}" -e ansible_unit_test=true
+    ansible-playbook ./tests/test.yml -i ./tests/hosts -t $case-setup -D -e prefix_dir="${outputs}/${case}" -e ansible_unit_test=true -e ansible_unit_test_user=$user -e ansible_unit_test_group=$group >/dev/null
+    ansible-playbook ./tests/test.yml -i ./tests/hosts -t $case -D -e prefix_dir="${outputs}/${case}" -e ansible_unit_test=true -e ansible_unit_test_user=$user -e ansible_unit_test_group=$group
     result=$?
 
     if diff -uNr tests/cases/${case} tests/${outputs}/${case} >/dev/null 2>&1 ;then
