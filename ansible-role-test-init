@@ -6,10 +6,6 @@ if [ ! -f ./tests/run ];then
     chmod +x ./tests/run
 fi
 
-if [ ! -f ./tests/hosts ];then
-    echo "127.0.0.1" > ./tests/hosts
-fi
-
 if [ ! -f ./tests/test.yml ];then
     cat >./tests/test.yml <<EOF
 ---
