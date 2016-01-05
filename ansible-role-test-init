@@ -39,7 +39,7 @@ EOF
 fi
 
 cat <<EOF
-oTODO:
+TODO:
 #1 Add entry to 'defaults/main.yml'
 
 prefix_dir:
