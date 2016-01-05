@@ -4,6 +4,7 @@ mkdir -p tests/cases
 if [ ! -f ./tests/run ];then
     curl -s https://raw.githubusercontent.com/tumf/ansible-role-test-init/master/ansible-role-test-run > ./tests/run
     chmod +x ./tests/run
+    echo 'Put ./tests/run' >&2
 fi
 
 if [ ! -f ./tests/test.yml ];then
@@ -16,6 +17,7 @@ if [ ! -f ./tests/test.yml ];then
   roles:
     - role: ../..
 EOF
+    echo 'Put ./tests/test.yml' >&2
 fi
 
 
@@ -32,19 +34,20 @@ before_script:
 script:
 - ./tests/run
 EOF
+    echo 'Put .travis.yml' >&2
 fi
 
 if ! grep '^prefix_dir:' defaults/main.yml >/dev/null 2>&1;then
     echo 'prefix_dir: ""' >>defaults/main.yml
-    echo 'Add `prefix_dir: ""`'
+    echo 'Add `prefix_dir: ""` to defaults/main.yml' >&2
 fi
 
 if ! grep '^ansible_unit_test:' defaults/main.yml >/dev/null 2>&1;then
     echo 'ansible_unit_test: false' >>defaults/main.yml
-    echo 'Add `ansible_unit_test: false`'
+    echo 'Add `ansible_unit_test: false` to defaults/main.yml' >&2
 fi
 
 if ! grep '^/tests/outputs' .gitignore >/dev/null 2>&1;then
     echo '/tests/outputs' >>.gitignore
-    echo 'Add `/tests/outputs`'
+    echo 'Add `/tests/outputs` to .gitignore' >&2
 fi
