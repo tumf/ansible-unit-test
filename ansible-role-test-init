@@ -13,7 +13,7 @@ if [ ! -f ./tests/test.yml ];then
 - hosts: 127.0.0.1
   connection: local
   tags:
-    - default
+    - install
   roles:
     - role: ../..
 EOF
