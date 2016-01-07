@@ -16,6 +16,8 @@ if [ ! -f ./tests/test.yml ];then
     - install
   roles:
     - role: ../..
+  tasks:
+    - debug: msg="The test case is succeeded."
 EOF
     echo 'Put ./tests/test.yml' >&2
 fi
