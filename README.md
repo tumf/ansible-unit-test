@@ -16,7 +16,7 @@ cd ~/bin
 Download
 
 ```bash
-curl https://raw.githubusercontent.com/tumf/ansible-role-test-init/master/ansible-role-test-init > ansible-role-test-init
+curl https://raw.githubusercontent.com/tumf/ansible-unit-test/master/ansible-role-test-init > ansible-role-test-init
 chmod +x ansible-role-test-init
 ```
 
@@ -31,5 +31,6 @@ Run
 in role directory.
 
 ```
-curl -s https://raw.githubusercontent.com/tumf/ansible-role-test-init/master/ansible-role-test-init |bash
+curl -s https://raw.githubusercontent.com/tumf/ansible-unit-test/master/ansible-role-test-init |bash
+```
 ```

@@ -2,7 +2,7 @@
 mkdir -p tests/cases
 
 if [ ! -f ./tests/run ];then
-    curl -s https://raw.githubusercontent.com/tumf/ansible-role-test-init/master/ansible-role-test-run > ./tests/run
+    curl -s https://raw.githubusercontent.com/tumf/ansible-unit-test/master/ansible-role-test-run > ./tests/run
     chmod +x ./tests/run
     echo 'Put ./tests/run' >&2
 fi
