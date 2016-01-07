@@ -39,9 +39,9 @@ EOF
     echo 'Put .travis.yml' >&2
 fi
 
-if ! grep '^prefix_dir:' defaults/main.yml >/dev/null 2>&1;then
-    echo 'prefix_dir: ""' >>defaults/main.yml
-    echo 'Add `prefix_dir: ""` to defaults/main.yml' >&2
+if ! grep '^ansible_unit_test_prefix_dir:' defaults/main.yml >/dev/null 2>&1;then
+    echo 'ansible_unit_test_prefix_dir: ""' >>defaults/main.yml
+    echo 'Add `ansible_unit_test_prefix_dir: ""` to defaults/main.yml' >&2
 fi
 
 if ! grep '^ansible_unit_test:' defaults/main.yml >/dev/null 2>&1;then

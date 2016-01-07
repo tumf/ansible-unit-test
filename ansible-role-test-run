@@ -41,8 +41,8 @@ mkdir -p tests/cases tests/${outputs}
 for case in $cases
 do
     echo "* Test: $case"
-    ansible-playbook ./tests/test.yml -i 127.0.0.1, -t $case-setup -e prefix_dir="${outputs}/${case}" ${ansible_opts} >/dev/null
-    ansible-playbook ./tests/test.yml -i 127.0.0.1, -t $case -e prefix_dir="${outputs}/${case}" ${ansible_opts} || exit 255
+    ansible-playbook ./tests/test.yml -i 127.0.0.1, -t $case-setup -e ansible_unit_test_prefix_dir="${outputs}/${case}" -e prefix_dir="${outputs}/${case}" ${ansible_opts} >/dev/null
+    ansible-playbook ./tests/test.yml -i 127.0.0.1, -t $case -e ansible_unit_test_prefix_dir="${outputs}/${case}" -e prefix_dir="${outputs}/${case}" ${ansible_opts} || exit 255
 
 
     if diff -uNr tests/cases/${case} tests/${outputs}/${case} >/dev/null 2>&1 ;then
