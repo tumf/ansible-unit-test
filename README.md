@@ -41,7 +41,7 @@ curl -s https://raw.githubusercontent.com/tumf/ansible-unit-test/master/ansible-
 |ansible_unit_test_prefix_dir|string|""|./tests/outputs/{case}
 |ansible_unit_test|boolean|false|true
 |ansible_unit_test_user|string||(testing user)
-|ansible_unit_test_group|string|(testing group)
+|ansible_unit_test_group|string||(testing group)
 
 > **Note**
 > `prefix_dir` is obsolate.
