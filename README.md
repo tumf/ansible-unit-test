@@ -1,7 +1,7 @@
 ansible-role-test-init
 ======================
 
-UnitTesting Framwork for Ansible.
+A unit testing framework for Ansible.
 
 ## Install
 
