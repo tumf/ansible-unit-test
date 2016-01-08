@@ -1,5 +1,5 @@
-ansible-role-test-init
-======================
+ansible-unit-test
+=================
 
 A unit testing framework for Ansible.
 
