@@ -49,7 +49,7 @@ curl -s https://raw.githubusercontent.com/tumf/ansible-unit-test/master/ansible-
 ## How to start your Ansible role project.
 
 
-### 1. Generate ansible role template files.
+### Generate ansible role template files.
 
 ```
 ansible-galaxy init ansible-role-docker-machine
@@ -79,7 +79,7 @@ Generated files are as below:
         └── main.yml
 
 
-### 2. Run all tests.
+### Run all tests.
 
 Run as follows:
 
@@ -87,13 +87,12 @@ Run as follows:
 ./tests/run
 ```
 
-### 3. Creaet first test case
+### Create first test case
 
 Create your first test case named 'install' as belows:
 
 
 ```tests/task.yml
----
 - hosts: 127.0.0.1
   connection: local
   tags:
@@ -108,12 +107,11 @@ Run the `install` task as belows:
 ./tests/run install
 ```
 
-### 4. Add set up tasks.
+### Add set up tasks.
 
-The tasks tagged to 'install-setup' are set up tasks for a test case named `install`.
+The tasks tagged to '*-setup' are set up tasks.
 
-```tests/task.yml
----
+```yaml:tests/task.yml
 - hosts: 127.0.0.1
   connection: local
   tags:
@@ -130,8 +128,9 @@ The tasks tagged to 'install-setup' are set up tasks for a test case named `inst
 ```
 
 
+The setup tasks run before each test cases.
 
-### 5. Update set up task.
+### Update set up task.
 
 Update your test case by role.
 
@@ -139,12 +138,12 @@ Update your test case by role.
 run -w install
 ```
 
-### 6. Skip Task
+### Skip Task
 
-Skip some tasks in unit testing:
+Skip some tasks when unit testing:
 
 
-```
+```yaml:tasks/main.yml
 - name: Configuring service
   service:
     name: newrelic-sysmond
@@ -154,12 +153,11 @@ Skip some tasks in unit testing:
 ```
 
 
-### 7. Output Path
+### Output Path
 
-You must prepend `ansible_unit_test_prefix_dir` to the output path.
+You must prepend `ansible_unit_test_prefix_dir` to the file output path.
 
-
-```
+```yaml:tasks/main.yml
 - name: Create Install Directory
   file: path="{{ ansible_unit_test_prefix_dir }}/usr/local/bin" state=directory recurse=yes
 ```
