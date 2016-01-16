@@ -32,9 +32,9 @@ install:
 - pip install ansible
 before_script:
 - ansible --version
-- ansible-playbook --syntax-check ./tests/test.yml -i 127.0.0.1,
+- cd tests; ansible-playbook --syntax-check ./test.yml -i 127.0.0.1,
 script:
-- ./tests/run
+- cd tests;./run
 EOF
     echo 'Put .travis.yml' >&2
 fi
