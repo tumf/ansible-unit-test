@@ -24,7 +24,7 @@ done
 
 shift $((OPTIND - 1))
 
-[ -f tests/site.yml ] && cd tests
+[ -f tests/test.yml ] && cd tests
 
 cases=$(ls cases)
 if [ ! -z $1 ];then
